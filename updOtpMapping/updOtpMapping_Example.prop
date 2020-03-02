@@ -1,0 +1,45 @@
+# Properties for production environnement
+prod.source.name=Mongo Prod source
+prod.source.ip=1.2.3.4
+prod.source.port=27017
+prod.source.dbname=dbname
+prod.source.login=login
+prod.source.passwd=passwd
+prod.source.informixserver=na
+prod.source.drivername=MongoDB
+prod.source.driverclass=MongoDB
+prod.source.nb.thread=8
+
+prod.destination.name=Mongo Prod destination
+prod.destination.ip=2.3.4.5
+prod.destination.port=27017
+prod.destination.dbname=dbname
+prod.destination.login=login
+prod.destination.passwd=passwd
+prod.destination.informixserver=na
+prod.destination.drivername=MongoDB
+prod.destination.driverclass=MongoDB
+prod.destination.nb.thread=8
+
+# Properties for development environnement
+dev.source.name=Mongo Prod source
+dev.source.ip=1.2.3.5
+dev.source.port=27017
+dev.source.dbname=dbname
+dev.source.login=login
+dev.source.passwd=passwd
+dev.source.informixserver=na
+dev.source.drivername=MongoDB
+dev.source.driverclass=MongoDB
+dev.source.nb.thread=8
+
+dev.destination.name=Mongo Preprod
+dev.destination.ip=2.3.4.6
+dev.destination.port=27017
+dev.destination.dbname=dbname
+dev.destination.login=login
+dev.destination.passwd=passwd
+dev.destination.informixserver=na
+dev.destination.drivername=MongoDB
+dev.destination.driverclass=MongoDB
+dev.destination.nb.thread=8

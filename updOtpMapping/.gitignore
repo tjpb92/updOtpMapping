@@ -1,0 +1,8 @@
+# My .gitignore file
+
+updOtpMapping.prop
+*.xlsx
+
+/nbproject/private/
+/build/
+/dist/
