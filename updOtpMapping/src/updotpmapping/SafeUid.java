@@ -6,7 +6,7 @@ import java.util.regex.*;
  * Classe décrivant un identifiant unique de type UUID.
  *
  * @author Thierry Baribaud
- * @version 0.02
+ * @version 0.03
  */
 public class SafeUid {
 
@@ -36,21 +36,23 @@ public class SafeUid {
     }
 
     /**
-     * @return l'identifiant unique
+     * @return uid l'identifiant unique
      */
     public String getUid() {
         return uid;
     }
 
     /**
-     * @param uid définit l'dentifiant unique
+     * @param uid définit l'identifiant unique
      */
     public void setUid(String uid) {
         this.uid = uid;
     }
 
     /**
-     * @return Retourne l'objet sous forme textuelle
+     * Retourne l'objet sous forme textuelle
+     * 
+     * @return l'objet sous forme textuelle
      */
     @Override
     public String toString() {

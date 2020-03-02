@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Classe décrivant le référentiel des motifs d'ouverture de ticket
  *
  * @author Thierry Baribaud
- * @version 0.02
+ * @version 0.03
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OpeningTicketPurposeRef {
@@ -31,7 +31,7 @@ public class OpeningTicketPurposeRef {
      */
 
     /**
-     * @return la liste de motifs d'ouverture de ticket
+     * @return openingTicketPurposes la liste de motifs d'ouverture de ticket
      */
     public OpeningTicketPurposes getOpeningTicketPurposes() {
         return openingTicketPurposes;
@@ -46,7 +46,9 @@ public class OpeningTicketPurposeRef {
     }
 
     /**
-     * @return Retourne l'objet sous forme textuelle
+     * Retourne l'objet sous forme textuelle
+     * 
+     * @return l'objet sous forme textuelle
      */
     @Override
     public String toString() {

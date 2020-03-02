@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * Classe décrivant un motif d'ouverture de ticket
  * Version pour la base de données intermédiaire.
  * @author Thierry Baribaud
- * @version 0.02
+ * @version 0.03
  */
 public class OtpMapping {
 
@@ -56,21 +56,21 @@ public class OtpMapping {
     }
     
     /**
-     * @return l'identifiant unique du motif d'ouverture de ticket
+     * @return uid l'identifiant unique du motif d'ouverture de ticket
      */
     public String getUid() {
         return uid;
     }
 
     /**
-     * @param uid définit l'dentifiant unique du motif d'ouverture de ticket
+     * @param uid définit l'identifiant unique du motif d'ouverture de ticket
      */
     public void setUid(String uid) {
         this.uid = uid;
     }
 
     /**
-     * @return le libellé du motif d'ouverture de ticket
+     * @return label le libellé du motif d'ouverture de ticket
      */
     public String getLabel() {
         return label;
@@ -84,7 +84,7 @@ public class OtpMapping {
     }
 
     /**
-     * @return l'identifiant externe du motif d'ouverture de ticket
+     * @return extId l'identifiant externe du motif d'ouverture de ticket
      */
     public String getExtId() {
         return extId;
@@ -98,7 +98,7 @@ public class OtpMapping {
     }
 
     /**
-     * @return l'identifiant unique de l'activité
+     * @return activityUid l'identifiant unique de l'activité
      */
     public String getActivityUid() {
         return activityUid;
@@ -112,7 +112,7 @@ public class OtpMapping {
     }
 
     /**
-     * @return l'identifiant unique du client
+     * @return clientCompanyUid l'identifiant unique du client
      */
     public String getClientCompanyUid() {
         return clientCompanyUid;
@@ -126,7 +126,9 @@ public class OtpMapping {
     }
 
     /**
-     * @return Retourne l'objet sous forme textuelle
+     * Retourne l'objet sous forme textuelle
+     * 
+     * @return l'objet sous forme textuelle
      */
     @Override
     public String toString() {

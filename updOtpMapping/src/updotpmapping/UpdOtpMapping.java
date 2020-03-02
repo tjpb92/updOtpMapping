@@ -3,14 +3,10 @@ package updotpmapping;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -273,14 +269,14 @@ public class UpdOtpMapping {
     }
 
     /**
-     * @return debugMode : retourne le mode de fonctionnement debug.
+     * @return debugMode le mode de fonctionnement debug.
      */
     public boolean getDebugMode() {
         return (debugMode);
     }
 
     /**
-     * @param debugMode : fonctionnement du programme en mode debug
+     * @param debugMode définit le fonctionnement du programme en mode debug
      * (true/false).
      */
     public void setDebugMode(boolean debugMode) {
@@ -288,14 +284,14 @@ public class UpdOtpMapping {
     }
 
     /**
-     * @return testMode : retourne le mode de fonctionnement test.
+     * @return testMode le mode de fonctionnement test.
      */
     public boolean getTestMode() {
         return (testMode);
     }
 
     /**
-     * @param testMode : fonctionnement du programme en mode test (true/false).
+     * @param testMode définit le fonctionnement du programme en mode test (true/false).
      */
     public void setTestMode(boolean testMode) {
         UpdOtpMapping.testMode = testMode;
@@ -364,7 +360,7 @@ public class UpdOtpMapping {
      * Ecrit les données dans la base de données de destination
      *
      * @param mongoDatabase base de données où écrire
-     * @param optMappings liste de motifis d'ouverture de ticket
+     * @param optMappings liste de motifs d'ouverture de ticket
      */
     public void writeDestinationData(MongoDatabase mongoDatabase, OtpMappings optMappings) {
         String json;
@@ -381,9 +377,9 @@ public class UpdOtpMapping {
     }
 
     /**
-     * Retourne le contenu de UpdOtpMapping
+     * Retourne l'objet sous forme textuelle
      *
-     * @return retourne le contenu de UpdOtpMapping
+     * @return l'objet sous forme textuelle
      */
     @Override
     public String toString() {
