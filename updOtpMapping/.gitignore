@@ -2,6 +2,7 @@
 
 updOtpMapping.prop
 *.xlsx
+*.json
 
 /nbproject/private/
 /build/

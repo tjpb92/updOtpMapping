@@ -3,7 +3,7 @@ Programme Java permettant de mettre à jour dans une base de données de destinati
 
 ## Utilisation:
 ```
-java UpdOtpMapping [-source db] [-destinatin db] -u unum|-clientCompanyUuid uuid [-d] [-t] 
+java UpdOtpMapping [-source db] [-destination db] -u unum|-clientCompanyUuid uuid [-d] [-t] 
 ```
 où :
 * ```-source prod|pre-prod|dev``` est la référence à la base de données MongoDb contenant les données à copier, par défaut désigne la base de données de pré-production. Voir fichier *updOtpMapping.prop* (optionnel).

@@ -10,6 +10,7 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -28,7 +29,7 @@ import utils.ValidServers;
  * déclarées dans une base de données source.
  *
  * @author Thierry Baribaud
- * @version 0.01
+ * @version 0.02
  */
 public class UpdOtpMapping {
 
@@ -92,6 +93,8 @@ public class UpdOtpMapping {
         Enumeration names;
         String name;
         String connectionString;
+        OpeningTicketPurposeRef openingTicketPurposeRef;
+        OtpMappings otpMappings;
 
         System.out.println("Création d'une instance de updOtpMapping ...");
 
@@ -149,10 +152,13 @@ public class UpdOtpMapping {
         mongoDestinationDatabase = mongoDestinationClient.getDatabase(mgoDestination.getDbName());
 
         System.out.println("Lecture des données ...");
-        readSourceData(mongoSourceDatabase);
+        openingTicketPurposeRef = readSourceData(mongoSourceDatabase);
+
+        System.out.println("Conversion du éférentiel en liste de motifs d'ouverture de ticket ...");
+        otpMappings = new OtpMappings(clientCompanyUuid, openingTicketPurposeRef);
 
         System.out.println("Ecriture des données ...");
-//        writeDestinationData(mongoDestinationDatabase);
+        writeDestinationData(mongoDestinationDatabase, otpMappings);
 
     }
 
@@ -300,13 +306,14 @@ public class UpdOtpMapping {
      */
     public static void main(String[] args) {
         UpdOtpMapping updOtpMapping;
+        SafeUid uid;
 
         System.out.println("Lancement de UpdOtpMapping ...");
         try {
             updOtpMapping = new UpdOtpMapping(args);
         } catch (GetArgsException | IOException | DBServerException exception) {
             Logger.getLogger(UpdOtpMapping.class.getName()).log(Level.SEVERE, null, exception);
-//            Logger.getLogger(ExpPatrimonies.class.getName()).log(Level.INFO, null, exception);
+            //            Logger.getLogger(ExpPatrimonies.class.getName()).log(Level.INFO, null, exception);
         }
 
         System.out.println("Fin de UpdOtpMapping.");
@@ -317,13 +324,15 @@ public class UpdOtpMapping {
      * Lit les données source
      *
      * @param mongoDatabase base de données à lire
+     * @return openingTicketPurposeRef le référentiel du client
      */
-    public void readSourceData(MongoDatabase mongoDatabase) {
+    public OpeningTicketPurposeRef readSourceData(MongoDatabase mongoDatabase) {
 
         ObjectMapper objectMapper;
         BasicDBObject filter;
         MongoCursor<Document> openingTicketPurposeRefCursor;
         int n;
+        OpeningTicketPurposeRef openingTicketPurposeRef;
 
         objectMapper = new ObjectMapper();
         MongoCollection<Document> openingTicketPurposeRefCollection = mongoDatabase.getCollection("openingTicketPurposeRef");
@@ -336,23 +345,45 @@ public class UpdOtpMapping {
         openingTicketPurposeRefCursor = openingTicketPurposeRefCollection.find(filter).iterator();
 
         n = 0;
-//        try {
-        while (openingTicketPurposeRefCursor.hasNext()) {
-            System.out.println("Json:" + openingTicketPurposeRefCursor.next().toJson());
+        openingTicketPurposeRef = null;
+        try {
+            while (openingTicketPurposeRefCursor.hasNext()) {
+//            System.out.println("Json:" + openingTicketPurposeRefCursor.next().toJson());
+                openingTicketPurposeRef = objectMapper.readValue(openingTicketPurposeRefCursor.next().toJson(), OpeningTicketPurposeRef.class);
+                System.out.println("openingTicketPurposeRef:" + openingTicketPurposeRef);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UpdOtpMapping.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            openingTicketPurposeRefCursor.close();
         }
-//                patrimony = objectMapper.readValue(patrimoniesCursor.next().toJson(), Patrimony.class);
-
-//        } catch (IOException ex) {
-//            Logger.getLogger(UpdOtpMapping.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-        openingTicketPurposeRefCursor.close();
-//        }
+        return openingTicketPurposeRef;
     }
 
     /**
-     * Retourne le contenu de ExpPatrimonies
+     * Ecrit les données dans la base de données de destination
      *
-     * @return retourne le contenu de ExpPatrimonies
+     * @param mongoDatabase base de données où écrire
+     * @param optMappings liste de motifis d'ouverture de ticket
+     */
+    public void writeDestinationData(MongoDatabase mongoDatabase, OtpMappings optMappings) {
+        String json;
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(optMappings);
+            System.out.println("    json(optMappings):" + json);
+
+        } catch (IOException ex) {
+            Logger.getLogger(UpdOtpMapping.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    /**
+     * Retourne le contenu de UpdOtpMapping
+     *
+     * @return retourne le contenu de UpdOtpMapping
      */
     @Override
     public String toString() {
